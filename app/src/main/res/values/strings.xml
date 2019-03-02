@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Training</string>
-    <string name="button_label_toast">Toast</string>
-    <string name="button_label_count">Count</string>
-    <string name="count_initial_value">0</string>
-    <string name="toast_message">Hello Toast!</string>
-    <string name="button_label_zero">Zero</string>
+    <string name="button_send">Send</string>
+    <string name="activity2_name">Second Activity</string>
+    <string name="text_header">Message received</string>
+    <string name="editText_main">Enter your message here</string>
+    <string name="button_second">Reply</string>
+    <string name="editText_second">Enter Your Reply Here</string>
+    <string name="text_header_reply">Reply Received</string>
+
 </resources>

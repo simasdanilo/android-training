@@ -1,18 +1,43 @@
 package com.simasdanilo.training;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private int count = 0;
-    private TextView countText;
-    private Button countButton;
-    private Button zeroButton;
+    public static final String EXTRA_MESSAGE =
+            "com.simasdanilo.training.extra.MESSAGE";
+    private static final int TEXT_REQUEST = 1;
+
+    private TextView replyHeaderText;
+    private TextView replyText;
+    private EditText messageEditText;
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == TEXT_REQUEST) {
+            this.handleTextRequest(resultCode,data);
+        }
+    }
+
+    private void handleTextRequest(int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            this.showReplyReceived(data);
+        }
+    }
+
+    private void showReplyReceived(Intent data) {
+        String reply = data.getStringExtra(SecondActivity.EXTRA_REPLY);
+        this.replyHeaderText.setVisibility(View.VISIBLE);
+        this.replyText.setText(reply);
+        this.replyText.setVisibility(View.VISIBLE);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,75 +46,26 @@ public class MainActivity extends AppCompatActivity {
         this.bindViews();
     }
 
-    private void bindViews(){
-        this.countText = findViewById(R.id.show_count);
-        this.countButton = findViewById(R.id.button_count);
-        this.zeroButton = findViewById(R.id.button_zero);
+    private void bindViews() {
+        this.messageEditText = findViewById(R.id.editText_message);
+        this.replyHeaderText = findViewById(R.id.text_header_reply);
+        this.replyText = findViewById(R.id.text_reply);
     }
 
-    // helpers ---------------------------------------------
-
-    private boolean isEven(int number){
-        return number%2 == 0;
+    private String getMessageToSend(){
+        final String message = this.messageEditText.getText().toString();
+        return message;
     }
 
-    // general ---------------------------------------------
+    // ON CLICK -----------------------------------------
 
-    private void setCount(int newCount){
-        this.count = newCount;
-        this.onCountChanged();
+    public void onClickSend(View view) {
+        String message = this.getMessageToSend();
+
+        Intent messageIntent = new Intent(this, SecondActivity.class);
+        messageIntent.putExtra(EXTRA_MESSAGE, message);
+
+        this.startActivityForResult(messageIntent, TEXT_REQUEST);
     }
 
-    private void onCountChanged(){
-        this.updateCountText();
-        this.updateCountButtonBackground();
-        this.updateZeroButtonBackground();
-    }
-
-    // update views -----------------------------------------
-
-    private void updateCountText(){
-        String countString = Integer.toString(this.count);
-        this.countText.setText(countString);
-    }
-
-    private void updateCountButtonBackground(){
-        boolean countIsEven = this.isEven(this.count);
-
-        if (countIsEven){
-            this.countButton.setBackgroundColor(Color.BLUE);
-        }
-
-        if (!countIsEven){
-            this.countButton.setBackgroundColor(Color.MAGENTA);
-        }
-    }
-
-    private void updateZeroButtonBackground(){
-        boolean countIsZero = this.count == 0;
-
-        if (countIsZero){
-            this.zeroButton.setBackgroundColor(Color.GRAY);
-        }
-
-        if (!countIsZero){
-            this.zeroButton.setBackgroundColor(Color.GREEN);
-        }
-    }
-
-    // onClicks ----------------------------------------
-
-    public void onClickToast(View view) {
-        Toast toast = Toast.makeText(this,R.string.toast_message,Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void onClickCount(View view) {
-        int countUp = this.count+1;
-        this.setCount(countUp);
-    }
-
-    public void onClickZero(View view) {
-        this.setCount(0);
-    }
 }
