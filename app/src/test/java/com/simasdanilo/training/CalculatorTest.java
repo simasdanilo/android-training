@@ -38,4 +38,46 @@ public class CalculatorTest {
         assertThat(resultAdd, is(equalTo(2d)));
     }
 
+    @Test
+    public void addTwoNumbersNegative() {
+        double resultAdd = mCalculator.add(-1d, 2d);
+        assertThat(resultAdd, is(equalTo(1d)));
+    }
+
+    @Test
+    public void subTwoNumbers() {
+        double resultSub = mCalculator.sub(5d,1d);
+        assertThat(resultSub,is(equalTo(4d)));
+    }
+
+    @Test
+    public void subWorksWithNegativeResults() {
+        double resultSub = mCalculator.sub(1d,5d);
+        assertThat(resultSub,is(equalTo(-4d)));
+    }
+
+    @Test
+    public void mulTwoNumbers() {
+        double resultMul = mCalculator.mul(5d,2d);
+        assertThat(resultMul,is(equalTo(10d)));
+    }
+
+    @Test
+    public void mulTwoNumbersZero() {
+        double resultMul = mCalculator.mul(5d,0d);
+        assertThat(resultMul,is(equalTo(0d)));
+    }
+
+    @Test
+    public void divTwoNumbers() {
+        double resultDiv = mCalculator.div(5d,2d);
+        assertThat(resultDiv,is(equalTo(2.5d)));
+    }
+
+    @Test
+    public void divTwoNumbersZero() {
+        double resultDiv = mCalculator.div(5d,0d);
+        assertThat(resultDiv,is(equalTo(Double.POSITIVE_INFINITY)));
+    }
+
 }

@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
             operandTwo = getOperand(mOperandTwoEditText);
         } catch (NumberFormatException nfe) {
             Log.e(TAG, "NumberFormatException", nfe);
+            Toast errorToast = Toast.makeText(this,"Operands missing",Toast.LENGTH_SHORT);
+            errorToast.show();
             mResultTextView.setText(getString(R.string.computationError));
             return;
         }
@@ -108,9 +110,6 @@ public class MainActivity extends AppCompatActivity {
     private static Double getOperand(EditText operandEditText) {
         String operandText = getOperandText(operandEditText);
 
-        if (operandText.isEmpty()) {
-            return 0.0;
-        }
         return Double.valueOf(operandText);
     }
 
