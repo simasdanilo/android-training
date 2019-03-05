@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Training</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Droid Cafe</string>
 
     <string name="intro_text">Droid Desserts</string>
     <string name="froyo">FroYo is premium self-serve frozen yogurt.</string>
@@ -23,6 +23,17 @@
     <string name="same_day_messenger_service">Same day message service</string>
     <string name="next_day_ground_delivery">Next day ground deliver</string>
     <string name="pick_up">Pick up</string>
+
+    <string name="action_contact">Contact</string>
+    <string name="action_order">Order</string>
+    <string name="action_status">Status</string>
+    <string name="action_favorites">Favorite</string>
+
+    <string name="action_order_message">You selected Order.</string>
+    <string name="action_status_message">You selected Status.</string>
+    <string name="action_favorites_message">You selected Favorites.</string>
+    <string name="action_contact_message">You selected Contact.</string>
+    <string name="title_activity_order">Order</string>
 
     <string-array name="labels_array">
         <item>Home</item>
