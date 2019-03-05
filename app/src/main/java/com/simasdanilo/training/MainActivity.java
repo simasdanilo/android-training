@@ -1,7 +1,6 @@
 package com.simasdanilo.training;
 
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,41 +14,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClickShowAlert(View view) {
-        AlertDialog.Builder alertBuilder =
-                new AlertDialog.Builder(MainActivity.this);
-
-        // Set the dialog title and message.
-        alertBuilder.setTitle(R.string.alert_title);
-        alertBuilder.setMessage(R.string.alert_message);
-
-        // Add the dialog buttons.
-        alertBuilder.setPositiveButton(R.string.ok_button, this.getPositiveOnClickListener() );
-        alertBuilder.setNegativeButton(R.string.cancel_button, this.getNegativeOnClickListener());
-
-        // Create and show the AlertDialog.
-        alertBuilder.show();
+    public void onClickDate(View view) {
+        DialogFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.show(getSupportFragmentManager(),getString(R.string.datePicker));
     }
 
-    private DialogInterface.OnClickListener getPositiveOnClickListener() {
-        return new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // User clicked OK button.
-                Toast.makeText(getApplicationContext(),
-                        R.string.pressed_ok,
-                        Toast.LENGTH_SHORT).show();
-            }
-        };
+    public void processDatePickerResult(int year, int month, int day) {
+        String month_string = Integer.toString(month+1);
+        String day_string = Integer.toString(day);
+        String year_string = Integer.toString(year);
+        String dateMessage = (month_string +
+                "/" + day_string + "/" + year_string);
+
+       this.displayToast(dateMessage);
     }
 
-    private DialogInterface.OnClickListener getNegativeOnClickListener() {
-        return new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                // User cancelled the dialog.
-                Toast.makeText(getApplicationContext(),
-                        R.string.pressed_cancel,
-                        Toast.LENGTH_SHORT).show();
-            }
-        };
+    private void displayToast(String message){
+        Toast.makeText(this, getString(R.string.date) + message,
+                Toast.LENGTH_SHORT).show();
     }
+
 }
