@@ -1,6 +1,12 @@
 package com.simasdanilo.training;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -8,10 +14,43 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.bindViews();
+        this.setupViews();
     }
 
-    private void bindViews(){
+    private void setupViews(){
+        TextView articleTextView = findViewById(R.id.article);
+        registerForContextMenu(articleTextView);
+    }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_context, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.context_edit:
+                displayToast("Edit choice clicked.");
+                return true;
+            case R.id.context_share:
+                displayToast("Share choice clicked.");
+                return true;
+            case R.id.context_delete:
+                displayToast("Delete choice clicked.");
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    public void displayToast(String message) {
+        Toast.makeText(getApplicationContext(), message,
+                Toast.LENGTH_SHORT).show();
     }
 }
