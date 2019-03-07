@@ -1,8 +1,6 @@
 package com.simasdanilo.training;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -43,12 +41,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void onClickSearchBooks(View view) {
-        ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = null;
-        if (connMgr != null) {
-            networkInfo = connMgr.getActiveNetworkInfo();
-        }
 
         // Get the search string from the input field.
         String queryString = mBookInput.getText().toString();
@@ -62,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
 
 
-        if (networkInfo != null && networkInfo.isConnected()
-                && queryString.length() != 0) {
+        if (NetworkHelper.isOnline(this) && queryString.length() != 0) {
             // @AsyncTask new FetchBook(mTitleText, mAuthorText).execute(queryString);
             Bundle queryBundle = new Bundle();
             queryBundle.putString("queryString", queryString);
