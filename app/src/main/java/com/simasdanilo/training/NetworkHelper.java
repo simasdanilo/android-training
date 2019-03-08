@@ -10,11 +10,11 @@ public class NetworkHelper {
         return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
-    public static boolean isOnline(Context context) {
+    public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = getConnectivityManager(context);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        boolean isOnline = (networkInfo != null && networkInfo.isConnected());
+        boolean isConnected = (networkInfo != null && networkInfo.isConnected());
 
-        return isOnline;
+        return isConnected;
     }
 }
