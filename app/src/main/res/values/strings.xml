@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Training</string>
+    <string name="send_custom_broadcast">Send Custom Broadcast</string>
+    <string name="power_disconnected">Power disconnected!</string>
+    <string name="power_connected">Power connected!</string>
+    <string name="custom_broadcast_received">Custom Broadcast Received</string>
 </resources>
